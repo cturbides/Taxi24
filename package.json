@@ -1,0 +1,28 @@
+{
+  "name": "taxi24",
+  "version": "0.0.1",
+  "description": "Backend for a taxi application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cturbides/Taxi24.git"
+  },
+  "keywords": [
+    "NodeJS"
+  ],
+  "author": "Carlos Sanchez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cturbides/Taxi24/issues"
+  },
+  "homepage": "https://github.com/cturbides/Taxi24#readme",
+  "devDependencies": {
+    "express": "^4.18.2",
+    "jest": "^29.4.3",
+    "knex": "^2.4.2",
+    "pg": "^8.9.0"
+  }
+}
