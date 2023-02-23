@@ -44,8 +44,8 @@ jobs:
 
     - name: Running linter inside container
       run: |
-        docker exec -it taxi24-server-1 npm run lint
+        docker exec taxi24-server-1 npm run lint
       
     - name: Running tests inside container
       run: |
-        docker exec -it taxi24-server-1 npm run test
+        docker exec taxi24-server-1 npm run test
