@@ -44,7 +44,7 @@ describe('Pasajeros endpoints', () => {
       expect(response.body).toHaveProperty('id');
       expect(response.body.nombre).toBe('Juan');
     });
-    
+
     it('Debería devolver un error 400 si falta algún campo', async () => {
       const response = await request(app)
           .post('/api/pasajeros')
