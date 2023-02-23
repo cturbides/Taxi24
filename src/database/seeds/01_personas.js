@@ -1,4 +1,5 @@
 exports.seed = async function(knex) {
+  await knex('Pasajero').del();
   await knex('Persona').del();
   await knex('Persona').insert([
     {
