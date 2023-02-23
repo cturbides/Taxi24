@@ -1,13 +1,14 @@
 {
   "name": "taxi24",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Backend for a taxi application",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
     "test": "jest --passWithNoTests",
-    "lint": "eslint . --fix --ext .js"
+    "lint": "eslint . --fix --ext .js",
+    "migrate": "npx knex --knexfile src/database/config.js migrate:latest"
   },
   "repository": {
     "type": "git",
