@@ -1,0 +1,51 @@
+name: Node.js and Docker CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:  
+    branches: [ "main" ]
+
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [19.x]
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Installing packages
+      run: npm ci
+    
+    - name: Linter
+      run: npm run lint
+
+    - name: Testing
+      run: npm run test
+
+  containers:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create .env file
+      run: |
+        echo "${{ secrets.ENV_FILE }}" > .env
+      
+    - name: Running Docker compose
+      run: docker compose up -d
+
+    - name: Running linter inside container
+      run: |
+        docker exec -it taxi24-server-1 npm run lint
+      
+    - name: Running tests inside container
+      run: |
+        docker exec -it taxi24-server-1 npm run test
