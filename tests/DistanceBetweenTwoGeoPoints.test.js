@@ -9,12 +9,12 @@ describe('Funcion que calcula distancia entre 2 puntos de la tierra', () => {
     expect(haversine(52.5200, 13.4050, 51.5072, -0.1276)).toBeCloseTo(931.56);
   });
 
-  test('La función devuelve 0 cuando recibe valores no numéricos', () => {
-    expect(haversine('52.5200', 13.4050, '51.5072', '-0.1276')).toBe(0);
+  test('La función devuelve -1 cuando recibe valores no numéricos', () => {
+    expect(haversine('52.5200', 13.4050, '51.5072', '-0.1276')).toBe(-1);
   });
 
-  test('La función devuelve 0 cuando no se proporcionan valores', () => {
-    expect(haversine()).toBe(0);
+  test('La función devuelve -1 cuando no se proporcionan valores', () => {
+    expect(haversine()).toBe(-1);
   });
 
   test('La función maneja valores con más de 2 decimales correctamente', () => {

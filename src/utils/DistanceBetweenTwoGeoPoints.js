@@ -22,7 +22,7 @@ function haversine(lat1=0, long1=0, lat2=0, long2=0) {
     typeof(long1) != 'number' || !long1 ||
     typeof(long2) != 'number' || !long2
   ) {
-    return 0;
+    return -1;
   }
 
   const latitude1 = convertDegreesToRadian(lat1);
