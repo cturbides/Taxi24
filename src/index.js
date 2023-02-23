@@ -5,6 +5,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const invalidPathHandler = require('./middlewares/invalidPathHandler');
 
 const pasajeroRouter = require('./routers/Pasajero');
+const conductorRouter = require('./routers/Conductor');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(morgan('combined'));
 
 app.use('/api/pasajeros', pasajeroRouter);
+app.use('/api/conductores', conductorRouter);
 
 app.use(errorHandler);
 app.use(invalidPathHandler);

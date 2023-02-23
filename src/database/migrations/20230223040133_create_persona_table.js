@@ -3,7 +3,7 @@ exports.up = function(knex) {
     table.increments('id').primary();
     table.string('nombre', 255).notNullable();
     table.string('email', 255).notNullable().unique();
-    table.string('telefono', 11).notNullable().unique();
+    table.string('telefono', 20).notNullable().unique();
   });
 };
 
