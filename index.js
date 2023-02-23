@@ -1,9 +1,10 @@
 const express = require('express');
+const morgan = require('morgan');
 
+const PORT = 3000;
 const app = express();
-const port = 3000;
 
-app.listen(
-    port,
-    () => console.log('Listening on: ', port),
-);
+app.use(express.json());
+app.use(morgan('combined'));
+
+app.listen(PORT, () => console.log('Listening on: ', PORT));
