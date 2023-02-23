@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --forceExit",
     "lint": "eslint . --fix --ext .js",
     "migrate": "npx knex --knexfile src/database/config.js migrate:latest",
     "seed": "npx knex --knexfile src/database/config.js seed:run"
