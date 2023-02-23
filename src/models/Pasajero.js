@@ -18,7 +18,7 @@ function obtenerTodos() {
     'Pasajero.id', 'Persona.nombre', 'Persona.email', 'Persona.telefono',
   ];
 
-  return db('Pasajeros')
+  return db('Pasajero')
       .select(selectValues)
       .join('Persona', {'Persona.id': 'Pasajero.id_persona'});
 }
