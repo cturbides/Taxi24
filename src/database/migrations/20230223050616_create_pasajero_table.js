@@ -1,11 +1,11 @@
 exports.up = function(knex) {
-  return knex.schema.createTable('Pasajeros', (table) => {
+  return knex.schema.createTable('Pasajero', (table) => {
     table.increments('id').primary();
     table.integer('id_persona').unsigned().notNullable().unique()
-        .references('id').inTable('Personas');
+        .references('id').inTable('Persona');
   });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable('Pasajeros');
+  return knex.schema.dropTable('Pasajero');
 };

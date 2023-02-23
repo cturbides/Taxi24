@@ -11,7 +11,7 @@ const db = require('../database');
  * @throws {Error} - Si sucede un error en la consulta
  */
 function crear({nombre, email, telefono}) {
-  return db('Personas')
+  return db('Persona')
       .insert({nombre, email, telefono})
       .returning('id');
 };

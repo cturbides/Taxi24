@@ -6,7 +6,7 @@ const db = require('../database');
  * @return {Promise<[number]>} - Una promesa -> ID del nuevo pasajero
  */
 async function crear(idPersona) {
-  return db('Pasajeros').insert({id_persona: idPersona}).returning('id');
+  return db('Pasajero').insert({id_persona: idPersona}).returning('id');
 };
 
 /**
@@ -15,12 +15,12 @@ async function crear(idPersona) {
  */
 function obtenerTodos() {
   const selectValues = [
-    'Pasajeros.id', 'Personas.nombre', 'Personas.email', 'Personas.telefono',
+    'Pasajero.id', 'Persona.nombre', 'Persona.email', 'Persona.telefono',
   ];
 
   return db('Pasajeros')
       .select(selectValues)
-      .join('Personas', {'Personas.id': 'Pasajeros.id_persona'});
+      .join('Persona', {'Persona.id': 'Pasajero.id_persona'});
 }
 
 /**
@@ -30,13 +30,13 @@ function obtenerTodos() {
  */
 function obtenerPorID(id) {
   const selectValues = [
-    'Pasajeros.id', 'Personas.nombre', 'Personas.email', 'Personas.telefono',
+    'Pasajero.id', 'Persona.nombre', 'Persona.email', 'Persona.telefono',
   ];
 
-  return db('Pasajeros')
+  return db('Pasajero')
       .select(selectValues)
-      .where({'Pasajeros.id': id})
-      .join('Personas', {'Personas.id': 'Pasajeros.id_persona'})
+      .where({'Pasajero.id': id})
+      .join('Persona', {'Persona.id': 'Pasajero.id_persona'})
       .first();
 };
 
