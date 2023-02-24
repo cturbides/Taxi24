@@ -67,14 +67,14 @@ describe('Conductores endpoints', () => {
       expect(response.body.message).toBe(expectedMessage);
     });
 
-    it('Debería volver a devolver un error 400 si falta algún campo', async () => {
+    it('Debería devolver un error 400 si falta algún campo', async () => {
       const response = await request(app)
           .post('/api/conductores')
           .send({
             nombre: 'Juanito',
             email: 'aja@gmail.com',
             telefono: '534-1234',
-            latitud: '18.507047972869195'
+            latitud: '18.507047972869195',
           });
 
       let expectedMessage;
