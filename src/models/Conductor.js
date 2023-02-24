@@ -61,6 +61,10 @@ function obtenerPorID(id) {
       .first();
 };
 
+/**
+ * Obtiene todos los conductores disponibles
+ * @return {Promise<Array>} - Una promesa -> Objetos con datos de personas
+ */
 function obtenerTodosLosDisponibles() {
   const values = [
     'Conductor.id',
@@ -79,11 +83,16 @@ function obtenerTodosLosDisponibles() {
       .join('Ubicacion', {'Ubicacion.id': 'Conductor.id_ubicacion'});
 };
 
+/**
+ * Obtiene los conductores disponibles mas cercanos a un punto dado
+ * @param {Object} ubicacion - Objeto que contiene la latitud y longitud
+ * @return {Array} - Contiene objetos con los datos de los conductores
+ */
 async function obtenerTodosLosDisponiblesA3Km({latitud, longitud}) {
   const haversine = require('../utils/DistanceBetweenTwoGeoPoints');
+  const MAX_CONDUCTORES = 3;
 
   const conductoresDisponibles = await obtenerTodosLosDisponibles();
-  const distancias = [];
   const conductoresCercanos = [];
 
   conductoresDisponibles.forEach((conductor) => {
@@ -94,33 +103,24 @@ async function obtenerTodosLosDisponiblesA3Km({latitud, longitud}) {
         parseFloat(conductor.longitud),
     );
 
-    console.log('DISTANCIA: ', distancia);
-
     if (distancia <= 3.0 && distancia >= 0) {
-      conductoresCercanos.push(conductor);
-      distancias.push(distancia);
+      conductoresCercanos.push({conductor, distancia});
     }
   });
 
-  console.log('CONDUCTORES DB: ', conductoresDisponibles);
-  console.log('CONDUCTORES: ', conductoresCercanos);
+  // orden ascendente (a < b ? a : b)
+  conductoresCercanos.sort((a, b) => a.distancia - b.distancia);
 
-  const conductoresFinales = [];
-
-  while (distancias.length && conductoresFinales.length < 3) {
-    const maxDistancia = Math.max(distancias);
-    console.log('MAX DISTANCIA: ', maxDistancia);
-    const indexOfConductor = distancias.indexOf(maxDistancia);
-
-    conductoresFinales.push(conductoresCercanos.at(indexOfConductor));
-
-    conductoresCercanos.splice(indexOfConductor, 1);
-    distancias.splice(indexOfConductor, 1);
-  }
-
-  return conductoresFinales;
+  return conductoresCercanos
+      .slice(0, MAX_CONDUCTORES)
+      .map((objConductor) => objConductor.conductor);
 };
 
+/**
+ * Devuelve el ID de la ubicacion de un conductor
+ * @param {number} id - El ID del conductor
+ * @return {Promise<object>} - Promesa -> Objeto con el ID de la ubicacion
+ */
 function obtenerUbicacionID(id) {
   return db('Conductor')
       .select('id_ubicacion')
@@ -128,6 +128,12 @@ function obtenerUbicacionID(id) {
       .first();
 };
 
+/**
+ * Actualiza el estado del conductor
+ * @param {number} id - ID del conductor
+ * @param {string} estado - Nuevo estado del conductor
+ * @return {Promise<object>} - Contiene el ID del conductor
+ */
 function actualizarEstado(id, estado) {
   return db('Conductor')
       .update({estado})
