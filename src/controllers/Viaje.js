@@ -2,6 +2,17 @@ const Conductor = require('../models/Conductor');
 const Ubicacion = require('../models/Ubicacion');
 const Viaje = require('../models/Viaje');
 
+/**
+ * Crea un Viaje
+ * @param {Object} req - Representa una solicitud HTTP
+ * @param {string} req.body.idPasajero - ID del pasajero que solicita el viaje
+ * @param {string} req.body.latitudLlegada - Latitud de la ubicacion de llegada
+ * @param {string} req.body.longitudLlegada - Longitud de ubicacion de llegada
+ * @param {string} req.body.latitudSalida - Latitud de la ubicacion de salida
+ * @param {string} req.body.longitudSalida - Longitud de la ubicacion de salida
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function crear(req, res, next) {
   try {
     const {
@@ -45,6 +56,13 @@ async function crear(req, res, next) {
   }
 };
 
+/**
+ * Obtiene un Viaje mediante su ID
+ * @param {Object} req - Representa una solicitud HTTP
+ * @param {string} req.params.id - ID del Viaje
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function verViaje(req, res, next) {
   try {
     const {id} = req.params;
@@ -56,6 +74,12 @@ async function verViaje(req, res, next) {
   }
 };
 
+/**
+ * Obtiene todos los viajes que esten en Pendientes y Aceptados
+ * @param {Object} _req - Representa una solicitud HTTP
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function verViajesActivos(_req, res, next) {
   try {
     const viajesActivos = await Viaje.obtenerTodosLosViajesActivos();
@@ -66,6 +90,13 @@ async function verViajesActivos(_req, res, next) {
   }
 }
 
+/**
+ * Cancela un Viaje y coloca al Conductor como Disponible
+ * @param {Object} req - Objeto de solicitud HTTP
+ * @param {string} req.body.id - ID del Viaje
+ * @param {Object} res - Objeto de respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function cancelarViaje(req, res, next) {
   try {
     const {id} = req.body;
@@ -84,21 +115,22 @@ async function cancelarViaje(req, res, next) {
   }
 };
 
+/**
+ * Finaliza un Viaje y coloca al Conductor como Disponible
+ * @param {Object} req - Objeto de solicitud HTTP
+ * @param {string} req.body.id - ID del Viaje
+ * @param {Object} res - Objeto de respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function finalizarViaje(req, res, next) {
   try {
     const {id} = req.body;
 
-    console.log('AJA1: ', id);
-
     const viaje = await Viaje.obtenerPorID(id);
-
-    console.log('AJA2: ', viaje);
 
     const idViaje = await Viaje.actualizarEstado(
         id, 'Finalizado', new Date().toISOString(),
     );
-
-    console.log('AJA: ', idViaje);
 
     await Conductor.actualizarEstado(viaje.id_conductor, 'Disponible');
 
@@ -108,6 +140,13 @@ async function finalizarViaje(req, res, next) {
   }
 }
 
+/**
+ * Acepta un Viaje y coloca al Conductor como No Disponible
+ * @param {Object} req - Objeto de solicitud HTTP
+ * @param {string} req.body.id - ID del Viaje
+ * @param {Object} res - Objeto de respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function aceptarViaje(req, res, next) {
   try {
     const {id} = req.body;
