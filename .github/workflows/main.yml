@@ -42,7 +42,11 @@ jobs:
     - name: Running linter inside container
       run: |
         docker exec taxi24-server-1 npm run lint
-      
+
+    -name: Wait for DB
+      run: |
+        sleep 10
+        
     - name: Running migrations
       run: |
         docker exec taxi24-server-1 npm run migrate
