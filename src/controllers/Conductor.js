@@ -2,6 +2,17 @@ const Conductor = require('../models/Conductor');
 const Ubicacion = require('../models/Ubicacion');
 const Persona = require('../models/Persona');
 
+/**
+ * Crea un conductor
+ * @param {Object} req - Representa solicitud HTTP
+ * @param {string} req.nombre - Nombre del conductor.
+ * @param {string} req.email - Email del conductor.
+ * @param {string} req.telefono - Telefono del conductor.
+ * @param {string} req.latitud - Latitud de la ubicacion del conductor.
+ * @param {string} req.longitud - Longitud de la ubicacion del conductor.
+ * @param {Object} res - Representa respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function crear(req, res, next) {
   const {nombre, email, telefono, latitud, longitud} = req.body;
 
@@ -19,6 +30,15 @@ async function crear(req, res, next) {
   }
 };
 
+/**
+ * Actualiza la ubicacion de un conductor
+ * @param {Object} req - Representa una solicitud HTTP
+ * @param {string} req.params.id - ID del conductor
+ * @param {string} req.query.latitud - Nueva latitud para la ubicacion
+ * @param {string} req.query.longitud - Nueva longitud para la ubicacion
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function actualizarUbicacionDeConductor(req, res, next) {
   try {
     const {id} = req.params;
@@ -38,6 +58,12 @@ async function actualizarUbicacionDeConductor(req, res, next) {
   }
 }
 
+/**
+ * Obtiene todos los conductores registrados
+ * @param {Object} _req - Representa una solicitud HTTP
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function obtenerConductores(_req, res, next) {
   try {
     const conductores = await Conductor.obtenerTodos();
@@ -47,6 +73,12 @@ async function obtenerConductores(_req, res, next) {
   }
 };
 
+/**
+ * Obtiene todos los conductores disponibles registrados
+ * @param {Object} _req - Representa una solicitud HTTP
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function obtenerConductoresDisponibles(_req, res, next) {
   try {
     const conductores = await Conductor.obtenerTodosLosDisponibles();
@@ -56,6 +88,13 @@ async function obtenerConductoresDisponibles(_req, res, next) {
   }
 };
 
+/**
+ * Obtiene un conductor mediante su ID
+ * @param {Object} req - Representa una solicitud HTTP
+ * @param {string} req.params.id - ID del conductor
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function obtenerConductor(req, res, next) {
   const {id} = req.params;
 
@@ -67,6 +106,14 @@ async function obtenerConductor(req, res, next) {
   }
 };
 
+/**
+ * Obtiene los conductores disponibles cercanos a una latitud y longitud
+ * @param {Object} req - Representa una solicitud HTTP
+ * @param {string} req.query.latitud - Punto latitudinal de la ubicación
+ * @param {string} req.query.longitud - Punto longitudinal de la ubicación
+ * @param {Object} res - Representa una respuesta HTTP
+ * @param {Function} next - Función next de Express
+ */
 async function obtenerConductoresDisponiblesCercanos(req, res, next) {
   const {latitud, longitud} = req.query;
 
