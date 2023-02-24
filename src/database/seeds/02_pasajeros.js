@@ -1,7 +1,7 @@
 exports.seed = async function(knex) {
   await knex('Viaje').del();
   await knex('Pasajero').del();
-  
+
   await knex('Pasajero').insert([
     {id_persona: 1},
     {id_persona: 2},

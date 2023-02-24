@@ -94,7 +94,7 @@ async function obtenerTodosLosDisponiblesA3Km({latitud, longitud}) {
         parseFloat(conductor.longitud),
     );
 
-    console.log("DISTANCIA: ", distancia);
+    console.log('DISTANCIA: ', distancia);
 
     if (distancia <= 3.0 && distancia >= 0) {
       conductoresCercanos.push(conductor);
@@ -109,7 +109,7 @@ async function obtenerTodosLosDisponiblesA3Km({latitud, longitud}) {
 
   while (distancias.length && conductoresFinales.length < 3) {
     const maxDistancia = Math.max(distancias);
-    console.log("MAX DISTANCIA: ", maxDistancia)
+    console.log('MAX DISTANCIA: ', maxDistancia);
     const indexOfConductor = distancias.indexOf(maxDistancia);
 
     conductoresFinales.push(conductoresCercanos.at(indexOfConductor));
