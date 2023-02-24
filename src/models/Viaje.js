@@ -46,7 +46,7 @@ function obtenerTodosLosViajesActivos() {
       .select(values)
       .whereIn('Viaje.estado', ['Aceptado', 'En Proceso', 'Pendiente'])
       .join('Conductor', {'Conductor.id': 'Viaje.id_conductor'})
-      .join('Pasajero', {'Pasajero.id': 'Viaje.id_pasajero'})
+      .join('Pasajero', {'Pasajero.id': 'Viaje.id_pasajero'});
 };
 
 function actualizarEstado(idViaje, estado, llegada = null) {
