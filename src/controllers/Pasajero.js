@@ -4,8 +4,11 @@ const Persona = require('../models/Persona');
 /**
  * Crea un nuevo pasajero y devuelve el ID
  * @param {Object} req - Objeto de solicitud HTTP
+ * @param {string} req.body.nombre - Nombre de la persona
+ * @param {string} req.body.email - Email de la persona
+ * @param {string} req.body.telefono - Teléfono de la persona
  * @param {Object} res - Objeto de respuesta HTTP
- * @param {Function} next - Funcion next de Express
+ * @param {Function} next - Función next de Express
  */
 async function crear(req, res, next) {
   const {nombre, email, telefono} = req.body;
@@ -24,7 +27,7 @@ async function crear(req, res, next) {
  * Devuelve una lista con todos los pasajeros existentes
  * @param {Object} _req - Objeto de solicitud HTTP
  * @param {Object} res - Objeto de respuesta HTTP
- * @param {Function} next - Funcion next de Express
+ * @param {Function} next - función next de Express
  */
 async function obtenerPasajeros(_req, res, next) {
   try {
@@ -38,8 +41,9 @@ async function obtenerPasajeros(_req, res, next) {
 /**
  * Devuelve un pasajero por su ID
  * @param {Object} req - Objeto de solicitud HTTP
+ * @param {string} req.params.id - ID del pasajero
  * @param {Object} res - Objeto de respuesta HTTP
- * @param {Function} next - Funcion next de Express
+ * @param {Function} next - Función next de Express
  */
 async function obtenerPasajeroPorID(req, res, next) {
   const {id} = req.params;
