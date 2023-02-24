@@ -1,6 +1,6 @@
 {
   "name": "taxi24",
-  "version": "0.3.0",
+  "version": "0. 7.0",
   "description": "Backend for a taxi application",
   "main": "index.js",
   "scripts": {
