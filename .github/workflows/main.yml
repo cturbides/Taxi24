@@ -25,10 +25,7 @@ jobs:
       run: npm ci
     
     - name: Linter
-      run: npm run lint
-
-    - name: Testing
-      run: npm run test
+      run: npm run lint      
 
   containers:
     runs-on: ubuntu-latest
@@ -46,6 +43,10 @@ jobs:
       run: |
         docker exec taxi24-server-1 npm run lint
       
+    - name: Running migrations
+      run: |
+        docker exec taxi24-server-1 npm run migrate
+        
     - name: Running tests inside container
       run: |
         docker exec taxi24-server-1 npm run test
