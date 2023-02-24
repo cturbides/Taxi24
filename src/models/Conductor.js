@@ -120,6 +120,13 @@ function obtenerUbicacionID(id) {
       .select('id_ubicacion')
       .where({id})
       .first();
+};
+
+function actualizarEstado(id, estado) {
+  return db('Conductor')
+    .update({estado})
+    .where({id})
+    .returning('id');
 }
 
 module.exports = {
@@ -129,4 +136,5 @@ module.exports = {
   obtenerTodosLosDisponibles,
   obtenerTodosLosDisponiblesA3Km,
   obtenerUbicacionID,
+  actualizarEstado,
 };
