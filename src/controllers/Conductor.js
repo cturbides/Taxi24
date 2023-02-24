@@ -68,7 +68,7 @@ async function obtenerConductor(req, res, next) {
 };
 
 async function obtenerConductoresDisponiblesCercanos(req, res, next) {
-  const {latitud, longitud} = req.body;
+  const {latitud, longitud} = req.query;
 
   try {
     const conductores = await Conductor.obtenerTodosLosDisponiblesA3Km({
