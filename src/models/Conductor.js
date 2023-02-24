@@ -100,7 +100,19 @@ async function obtenerTodosLosDisponiblesA3Km({latitud, longitud}) {
     }
   });
 
-  return conductoresCercanos;
+  const conductoresFinales = [];
+
+  while (distancias.length && conductoresFinales.length < 3) {
+    const maxDistancia = Math.max(distancias);
+    const indexOfConductor = distancias.indexOf(maxDistancia);
+
+    conductoresFinales.push(conductoresCercanos.at(indexOfConductor));
+
+    conductoresCercanos.splice(indexOfConductor, 1);
+    distancias.splice(indexOfConductor, 1);
+  }
+
+  return conductoresFinales;
 };
 
 function obtenerUbicacionID(id) {
